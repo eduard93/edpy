@@ -1,0 +1,48 @@
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edpy"
+version = "0.1.0"
+description = "eduard93 python utils"
+readme = "README.md"
+authors = [{ name = "eduard93" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["utils"]
+#dependencies = ["irisnative"]
+requires-python = ">=3.2"
+
+    [project.optional-dependencies]
+    build = ["build"]
+    dev   = ["bumpver"]
+
+    [project.scripts]
+    edpy = "edpy.__main__:main"
+
+    [project.urls]
+    repository    = "https://github.com/eduard93/edpy"
+    documentation = "https://github.com/eduard93/edpy"
+
+
+[tool.bumpver]
+current_version = "1.1.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+    [tool.bumpver.file_patterns]
+    "pyproject.toml" = [
+        'current_version = "{version}"',
+        'version = "{version}"',
+    ]
+    "src/edpy/__init__.py" = ["{version}"]
+    "src/edpy/__main__.py" = ["- edpy v{version}"]
+
