@@ -9,4 +9,4 @@ See https://github.com/realpython/reader/ for more information.
 """
 
 # Version of edpy package
-__version__ = "1.1.1"
+__version__ = "0.1.1"

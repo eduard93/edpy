@@ -9,7 +9,7 @@ More information is available at:
 Version:
 --------
 
-- edpy v0.1.0
+- edpy v0.1.1
 """
 
 
