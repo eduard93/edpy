@@ -74,8 +74,12 @@ def string_from_stream(stream):
 # Create IRIS dynamic array from any iterable
 def create_array(iris, array):
     iris_array = iris.classMethodObject("%DynamicArray", "%New")
-    for arg in array:
-        iris_array.invokeVoid("%Push", scalar_to_iris(iris, arg))
+    for value in array:
+        iris_value = scalar_to_iris(iris, value)
+        if (type(iris_value).__name__ == 'IRISObject') and iris_value.invokeBoolean("%Extends", "%Stream.Object"):
+            iris_array.invokeVoid("%Push", iris_value, "stream")
+        else:
+            iris_array.invokeVoid("%Push", iris_value)
     return iris_array
 
 
@@ -83,7 +87,11 @@ def create_array(iris, array):
 def create_object(iris, obj):
     iris_obj = iris.classMethodObject("%DynamicObject", "%New")
     for key, value in obj.items():
-        iris_obj.invokeVoid("%Set", key, scalar_to_iris(iris, value))
+        iris_value = scalar_to_iris(iris, value)
+        if (type(iris_value).__name__ == 'IRISObject') and iris_value.invokeBoolean("%Extends", "%Stream.Object"):
+            iris_obj.invokeVoid("%Set", key, iris_value, "stream")
+        else:
+            iris_obj.invokeVoid("%Set", key, iris_value)
     return iris_obj
 
 
